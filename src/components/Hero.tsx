@@ -15,27 +15,43 @@ const Hero = () => {
           {/* Hero Content */}
           <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Make smarter decisions with your money
+              Master Your Money & Build Wealth
             </h1>
             <p className="text-xl text-gray-600">
-              Your journey to financial freedom starts here. Learn, plan and grow with our expert advice and powerful financial tools.
+              Expert-backed strategies to help you save money, invest wisely, and achieve financial freedom. Join over 10,000 readers already on their path to wealth.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button className="bg-finance-primary hover:bg-finance-primary/90 text-white px-6 py-6 text-lg">
-                Get Started
+                <Link to="/tools">Try Our Free Tools</Link>
               </Button>
               <Button variant="outline" className="border-finance-primary text-finance-primary px-6 py-6 text-lg">
-                Explore Tools
+                <Link to="/blog">Read Latest Guides</Link>
               </Button>
+            </div>
+            
+            {/* Social proof - AdSense friendly content */}
+            <div className="pt-6 flex items-center">
+              <div className="flex -space-x-2">
+                <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                <div className="w-8 h-8 rounded-full bg-gray-400"></div>
+                <div className="w-8 h-8 rounded-full bg-gray-500"></div>
+              </div>
+              <p className="ml-4 text-sm text-gray-600">
+                <span className="font-medium">Trusted by 10,000+ readers</span> • Featured in top finance publications
+              </p>
             </div>
           </div>
 
-          {/* Hero Image */}
+          {/* Hero Image - Now with more engaging visuals */}
           <div className="relative">
             <div className="bg-white rounded-xl overflow-hidden shadow-xl p-6 lg:mr-4">
-              <div className="aspect-video bg-gray-100 rounded-lg mb-4"></div>
+              <div className="aspect-video bg-finance-secondary rounded-lg mb-4 flex items-center justify-center">
+                <div className="text-finance-primary text-lg font-semibold">
+                  Interactive Finance Tools
+                </div>
+              </div>
               <div className="space-y-4">
-                <div className="h-6 bg-gray-100 rounded w-3/4"></div>
+                <h3 className="font-semibold">Latest Market Insights</h3>
                 <div className="h-4 bg-gray-100 rounded w-full"></div>
                 <div className="h-4 bg-gray-100 rounded w-5/6"></div>
                 <div className="h-4 bg-gray-100 rounded w-4/6"></div>

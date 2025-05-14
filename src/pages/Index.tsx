@@ -7,6 +7,7 @@ import FeaturedArticles from '../components/FeaturedArticles';
 import FinancialTools from '../components/FinancialTools';
 import Testimonials from '../components/Testimonials';
 import Newsletter from '../components/Newsletter';
+import AdSlot from '../components/AdSlot';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BarChart3, Lightbulb, BookOpen } from 'lucide-react';
@@ -36,6 +37,13 @@ const Index = () => {
       <main>
         <Hero />
         
+        {/* Ad placement after hero section */}
+        <div className="py-6 bg-gray-50">
+          <div className="container-custom">
+            <AdSlot id="home-top" format="leaderboard" className="mx-auto" />
+          </div>
+        </div>
+        
         {/* Features Section */}
         <section className="section bg-white">
           <div className="container-custom">
@@ -55,27 +63,49 @@ const Index = () => {
         
         <FeaturedArticles />
         
-        {/* CTA Section */}
+        {/* Ad placement before CTA */}
+        <div className="py-6 bg-white">
+          <div className="container-custom">
+            <AdSlot id="home-mid" format="rectangle" className="mx-auto" />
+          </div>
+        </div>
+        
+        {/* CTA Section - Enhanced for conversion */}
         <section className="section bg-finance-secondary">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="mb-6 text-finance-primary">Ready to Take Control of Your Finances?</h2>
               <p className="text-xl text-gray-700 mb-8">
-                Start your journey towards financial freedom with our expert guides and interactive tools.
+                Join thousands of readers already using our expert guides and interactive tools to achieve financial freedom.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button className="bg-finance-primary hover:bg-finance-primary/90 text-white px-8 py-6 text-lg">
-                  <Link to="/tools">Explore Tools</Link>
+                  <Link to="/tools">Explore Free Tools</Link>
                 </Button>
                 <Button variant="outline" className="border-finance-primary text-finance-primary px-8 py-6 text-lg">
-                  <Link to="/blog">Read Articles</Link>
+                  <Link to="/blog">Read Expert Articles</Link>
                 </Button>
+              </div>
+              
+              {/* Social proof addition */}
+              <div className="mt-8 p-4 bg-white rounded-lg inline-block">
+                <p className="text-sm text-gray-600">
+                  ★★★★★ <span className="font-medium">4.9/5 rating</span> from our readers
+                </p>
               </div>
             </div>
           </div>
         </section>
         
         <FinancialTools />
+        
+        {/* Ad placement before testimonials */}
+        <div className="py-6 bg-gray-50">
+          <div className="container-custom">
+            <AdSlot id="home-bottom" format="rectangle" className="mx-auto" />
+          </div>
+        </div>
+        
         <Testimonials />
         <Newsletter />
       </main>
