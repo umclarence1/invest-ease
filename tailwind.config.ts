@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Finance-specific colors
+				finance: {
+					primary: '#7E69AB',    // primary purple
+					secondary: '#D3E4FD',  // soft blue
+					accent: '#1EAEDB',     // bright blue
+					success: '#4CAF50',    // green for positive indicators
+					warning: '#F97316',    // orange for highlights/warnings
 				}
+			},
+			fontFamily: {
+				sans: ['Roboto', 'system-ui', 'sans-serif'],
+				serif: ['Georgia', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +97,20 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+					},
+					'100%': {
+						opacity: '1',
+					},
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out'
 			}
 		}
 	},
