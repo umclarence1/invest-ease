@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -80,11 +80,11 @@
   }
 
   h1 {
-    @apply text-4xl font-bold mb-6;
+    @apply text-4xl font-bold mb-6 font-heading;
   }
 
   h2 {
-    @apply text-3xl font-semibold mb-4 text-finance-primary;
+    @apply text-3xl font-semibold mb-4 text-finance-primary font-heading;
   }
 
   h3 {
@@ -116,7 +116,7 @@
 
 /* AdSense friendly styles */
 .ad-container {
-  @apply my-4 bg-white overflow-hidden;
+  @apply my-6 bg-white overflow-hidden rounded-md border border-gray-200;
 }
 
 .ad-sidebar {
@@ -132,7 +132,7 @@
 }
 
 .monetization-ready {
-  @apply min-h-[250px];
+  @apply min-h-[250px] flex items-center justify-center bg-gray-50 border border-gray-200 rounded-md;
 }
 
 /* Make sure ads don't overflow on mobile */
@@ -142,3 +142,81 @@
   }
 }
 
+/* Enhanced Typography */
+.font-heading {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Animation utilities */
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  transform: skewX(-25deg);
+  transition: all 0.75s;
+}
+
+.shine-effect:hover::after {
+  left: 125%;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300;
+}
+
+.card-hover:hover {
+  @apply shadow-lg transform -translate-y-1;
+}
+
+/* Glassmorphism effect */
+.glass-effect {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
+}
+
+/* Custom button styles */
+.btn-gradient {
+  @apply bg-gradient-to-r from-finance-primary to-finance-accent text-white;
+}
+
+/* Enhanced placeholder styling */
+.enhanced-placeholder::placeholder {
+  @apply text-gray-400 italic;
+}
+
+/* Custom scrollbar */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-finance-primary/50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-finance-primary;
+  }
+}
