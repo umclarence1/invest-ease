@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
 
 @tailwind base;
@@ -36,36 +35,52 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Finance colors for light mode */
+    --finance-primary: 262 38% 54%;
+    --finance-secondary: 214 80% 91%;
+    --finance-accent: 199 85% 49%;
+    --finance-success: 142 76% 36%;
+    --finance-warning: 24 95% 53%;
+    --finance-danger: 0 84% 60%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 224 71% 6%;
+    --card-foreground: 213 31% 91%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 224 71% 6%;
+    --popover-foreground: 213 31% 91%;
 
-    --primary: 263 47% 59%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 263 70% 65%;
+    --primary-foreground: 224 71% 4%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 213 31% 91%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 195 85% 41%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 199 85% 45%;
+    --accent-foreground: 213 31% 91%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 45%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 263 70% 65%;
+
+    /* Finance colors for dark mode - brighter versions */
+    --finance-primary: 263 70% 65%;
+    --finance-secondary: 214 60% 30%;
+    --finance-accent: 199 85% 55%;
+    --finance-success: 142 76% 45%;
+    --finance-warning: 24 95% 58%;
+    --finance-danger: 0 84% 55%;
   }
 }
 
@@ -80,25 +95,29 @@
   }
 
   h1 {
-    @apply text-4xl font-bold mb-6 font-heading;
+    @apply text-4xl font-bold mb-6 font-heading text-foreground;
   }
 
   h2 {
-    @apply text-3xl font-semibold mb-4 text-finance-primary font-heading;
+    @apply text-3xl font-semibold mb-4 text-foreground font-heading;
   }
 
   h3 {
-    @apply text-2xl font-medium mb-3;
+    @apply text-2xl font-medium mb-3 text-foreground;
+  }
+
+  h4 {
+    @apply text-xl font-medium mb-2 text-foreground;
   }
 
   p {
-    @apply mb-4 leading-relaxed;
+    @apply mb-4 leading-relaxed text-foreground;
   }
 }
 
-/* Custom finance styles */
+/* Custom finance styles - dark mode aware */
 .finance-card {
-  @apply rounded-md overflow-hidden border border-slate-200 transition-all 
+  @apply rounded-md overflow-hidden border border-border bg-card transition-all
          hover:shadow-md hover:-translate-y-1 duration-300;
 }
 
@@ -114,9 +133,9 @@
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-/* AdSense friendly styles */
+/* AdSense friendly styles - dark mode aware */
 .ad-container {
-  @apply my-6 bg-white overflow-hidden rounded-md border border-gray-200;
+  @apply my-6 bg-card overflow-hidden rounded-md border border-border;
 }
 
 .ad-sidebar {
@@ -128,17 +147,17 @@
 }
 
 .article-content p {
-  @apply mb-6;
+  @apply mb-6 text-foreground;
 }
 
 .monetization-ready {
-  @apply min-h-[250px] flex items-center justify-center bg-gray-50 border border-gray-200 rounded-md;
+  @apply min-h-[250px] flex items-center justify-center bg-muted border border-border rounded-md;
 }
 
 /* Make sure ads don't overflow on mobile */
 @media (max-width: 768px) {
   .ad-container {
-    @apply w-full !important;
+    @apply w-full;
   }
 }
 
@@ -173,6 +192,14 @@
   transition: all 0.75s;
 }
 
+.dark .shine-effect::after {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
 .shine-effect:hover::after {
   left: 125%;
 }
@@ -186,9 +213,9 @@
   @apply shadow-lg transform -translate-y-1;
 }
 
-/* Glassmorphism effect */
+/* Glassmorphism effect - dark mode aware */
 .glass-effect {
-  @apply bg-white/80 backdrop-blur-md border border-white/20;
+  @apply bg-background/80 backdrop-blur-md border border-border;
 }
 
 /* Custom button styles */
@@ -198,25 +225,386 @@
 
 /* Enhanced placeholder styling */
 .enhanced-placeholder::placeholder {
-  @apply text-gray-400 italic;
+  @apply text-muted-foreground italic;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - dark mode aware */
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+    @apply bg-muted;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     @apply bg-finance-primary/50 rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-finance-primary;
+  }
+}
+
+/* Dark mode specific fixes */
+.dark .text-gray-600,
+.dark .text-gray-700,
+.dark .text-gray-800,
+.dark .text-gray-900 {
+  @apply text-foreground;
+}
+
+.dark .text-gray-500 {
+  @apply text-muted-foreground;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  @apply bg-muted;
+}
+
+.dark .bg-white {
+  @apply bg-card;
+}
+
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  @apply border-border;
+}
+
+/* Ensure text is visible on colored backgrounds */
+.dark .bg-finance-primary,
+.dark .bg-finance-accent,
+.dark .bg-finance-success,
+.dark .bg-finance-warning,
+.dark .bg-finance-danger {
+  @apply text-white;
+}
+
+/* Chart colors for dark mode */
+.dark .recharts-text {
+  fill: hsl(var(--foreground));
+}
+
+.dark .recharts-cartesian-grid line {
+  stroke: hsl(var(--border));
+}
+
+/* Focus states */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-finance-primary focus:ring-offset-2 focus:ring-offset-background;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Disable transition on page load */
+.no-transition * {
+  transition: none !important;
+}
+
+/* ============================================
+   SMOOTH ANIMATIONS & TRANSITIONS
+   ============================================ */
+
+/* Enable smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Page transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out forwards;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Staggered animations for lists */
+.stagger-animation > * {
+  animation: fadeIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.stagger-animation > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-animation > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-animation > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-animation > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-animation > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-animation > *:nth-child(6) { animation-delay: 0.3s; }
+
+/* Enhanced button transitions */
+button,
+[role="button"],
+.btn {
+  @apply transition-all duration-200 ease-out;
+}
+
+button:active:not(:disabled),
+[role="button"]:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Tab transitions */
+[role="tablist"] {
+  @apply transition-all duration-200;
+}
+
+[role="tab"] {
+  @apply transition-all duration-200 ease-out;
+}
+
+[role="tabpanel"] {
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* Card transitions */
+.card,
+[data-slot="card"] {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card:hover,
+[data-slot="card"]:hover {
+  @apply shadow-lg;
+}
+
+/* Input focus transitions */
+input,
+textarea,
+select {
+  @apply transition-all duration-200 ease-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply ring-2 ring-finance-primary/30;
+}
+
+/* Slider smooth transitions */
+[role="slider"] {
+  @apply transition-all duration-150 ease-out;
+}
+
+/* Progress bar animations */
+[role="progressbar"] > * {
+  @apply transition-all duration-500 ease-out;
+}
+
+/* Chart animations */
+.recharts-wrapper {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.recharts-area,
+.recharts-bar,
+.recharts-line {
+  animation: slideInUp 0.6s ease-out;
+}
+
+/* Dropdown/Select animations */
+[data-state="open"] {
+  animation: scaleIn 0.15s ease-out;
+}
+
+/* Modal/Dialog animations */
+[role="dialog"] {
+  animation: scaleIn 0.2s ease-out;
+}
+
+[role="dialog"]::backdrop {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Tooltip animations */
+[role="tooltip"] {
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Accordion animations */
+[data-state="open"] > [data-accordion-content] {
+  animation: slideInUp 0.2s ease-out;
+}
+
+/* Hover effects for interactive elements */
+.interactive-hover {
+  @apply transition-all duration-200 ease-out cursor-pointer;
+}
+
+.interactive-hover:hover {
+  @apply -translate-y-0.5 shadow-md;
+}
+
+.interactive-hover:active {
+  @apply translate-y-0 shadow-sm;
+}
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--muted-foreground) / 0.1) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Smooth number transitions (for counters) */
+.number-transition {
+  @apply transition-all duration-300 ease-out;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Link hover effects */
+a:not([class]) {
+  @apply transition-colors duration-200;
+}
+
+a:not([class]):hover {
+  @apply text-finance-primary;
+}
+
+/* Navigation link transitions */
+nav a {
+  @apply transition-all duration-200 ease-out;
+}
+
+/* Image loading transitions */
+img {
+  @apply transition-opacity duration-300;
+}
+
+img[loading] {
+  opacity: 0;
+}
+
+img:not([loading]) {
+  opacity: 1;
+}
+
+/* Badge/Tag hover effects */
+.badge,
+[data-slot="badge"] {
+  @apply transition-all duration-200 ease-out;
+}
+
+/* Switch/Toggle animations */
+[role="switch"] {
+  @apply transition-all duration-200 ease-out;
+}
+
+[role="switch"] > span {
+  @apply transition-transform duration-200 ease-out;
+}
+
+/* Scroll-triggered animations (use with Intersection Observer) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

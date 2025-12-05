@@ -1,128 +1,164 @@
-
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BudgetCalculator from '../components/BudgetCalculator';
+import InvestmentCalculator from '../components/InvestmentCalculator';
+import DebtPayoffCalculator from '../components/DebtPayoffCalculator';
+import RetirementCalculator from '../components/RetirementCalculator';
+import NetWorthTracker from '../components/NetWorthTracker';
+import FinancialHealthQuiz from '../components/FinancialHealthQuiz';
+import FinancialGlossary from '../components/FinancialGlossary';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calculator, TrendingUp, CreditCard, PiggyBank } from 'lucide-react';
+import { Calculator, TrendingUp, CreditCard, Wallet, Landmark, Heart, BookOpen } from 'lucide-react';
 
 const Tools = () => {
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState('budget');
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab && ['budget', 'investment', 'debt', 'retirement', 'networth', 'quiz', 'glossary'].includes(tab)) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
+
+  const tabs = [
+    { id: 'budget', label: 'Budget', icon: Calculator, shortLabel: 'Budget' },
+    { id: 'investment', label: 'Investment', icon: TrendingUp, shortLabel: 'Invest' },
+    { id: 'debt', label: 'Debt Payoff', icon: CreditCard, shortLabel: 'Debt' },
+    { id: 'retirement', label: 'Retirement', icon: Wallet, shortLabel: 'Retire' },
+    { id: 'networth', label: 'Net Worth', icon: Landmark, shortLabel: 'Worth' },
+    { id: 'quiz', label: 'Health Quiz', icon: Heart, shortLabel: 'Quiz' },
+    { id: 'glossary', label: 'Glossary', icon: BookOpen, shortLabel: 'Terms' },
+  ];
+
   return (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-background">
         {/* Page Header */}
-        <section className="bg-gray-50 py-12">
+        <section className="bg-gradient-to-br from-finance-primary/10 via-background to-finance-accent/10 py-12 md:py-16">
           <div className="container-custom">
-            <h1 className="text-center">Financial Tools & Calculators</h1>
-            <p className="text-xl text-center text-gray-600 max-w-3xl mx-auto">
+            <h1 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              Financial Tools & Calculators
+            </h1>
+            <p className="text-lg md:text-xl text-center text-muted-foreground max-w-3xl mx-auto mt-4">
               Use our interactive calculators to help you plan, budget, and achieve your financial goals
             </p>
           </div>
         </section>
 
         {/* Tools Section */}
-        <section className="section">
+        <section className="py-8 md:py-12">
           <div className="container-custom">
-            <Tabs defaultValue="budget" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8">
-                <TabsTrigger value="budget" className="flex items-center gap-2">
-                  <Calculator className="h-4 w-4" /> Budget
-                </TabsTrigger>
-                <TabsTrigger value="investment" disabled className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4" /> Investment
-                </TabsTrigger>
-                <TabsTrigger value="debt" disabled className="flex items-center gap-2">
-                  <CreditCard className="h-4 w-4" /> Debt Payoff
-                </TabsTrigger>
-                <TabsTrigger value="savings" disabled className="flex items-center gap-2">
-                  <PiggyBank className="h-4 w-4" /> Savings
-                </TabsTrigger>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              {/* Desktop Tabs */}
+              <TabsList className="hidden md:grid w-full grid-cols-7 mb-8 h-auto p-1">
+                {tabs.map((tab) => (
+                  <TabsTrigger
+                    key={tab.id}
+                    value={tab.id}
+                    className="flex items-center gap-2 py-3 data-[state=active]:bg-finance-primary data-[state=active]:text-white"
+                  >
+                    <tab.icon className="h-4 w-4" />
+                    <span className="hidden lg:inline">{tab.label}</span>
+                    <span className="lg:hidden">{tab.shortLabel}</span>
+                  </TabsTrigger>
+                ))}
               </TabsList>
-              
-              <TabsContent value="budget" className="p-4">
+
+              {/* Mobile Tabs - Scrollable */}
+              <div className="md:hidden mb-6 -mx-4 px-4">
+                <TabsList className="inline-flex w-max gap-1 p-1 overflow-x-auto">
+                  {tabs.map((tab) => (
+                    <TabsTrigger
+                      key={tab.id}
+                      value={tab.id}
+                      className="flex items-center gap-1.5 px-3 py-2 whitespace-nowrap data-[state=active]:bg-finance-primary data-[state=active]:text-white"
+                    >
+                      <tab.icon className="h-4 w-4" />
+                      <span className="text-sm">{tab.shortLabel}</span>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+
+              <TabsContent value="budget" className="mt-0">
                 <BudgetCalculator />
               </TabsContent>
-              
-              <TabsContent value="investment">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Investment Growth Calculator</CardTitle>
-                    <CardDescription>Coming soon! Check back later for this calculator.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="h-96 flex items-center justify-center bg-gray-50">
-                    <p className="text-gray-500">This calculator will be available in a future update.</p>
-                  </CardContent>
-                </Card>
+
+              <TabsContent value="investment" className="mt-0">
+                <InvestmentCalculator />
               </TabsContent>
-              
-              <TabsContent value="debt">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Debt Payoff Calculator</CardTitle>
-                    <CardDescription>Coming soon! Check back later for this calculator.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="h-96 flex items-center justify-center bg-gray-50">
-                    <p className="text-gray-500">This calculator will be available in a future update.</p>
-                  </CardContent>
-                </Card>
+
+              <TabsContent value="debt" className="mt-0">
+                <DebtPayoffCalculator />
               </TabsContent>
-              
-              <TabsContent value="savings">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Savings Goal Calculator</CardTitle>
-                    <CardDescription>Coming soon! Check back later for this calculator.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="h-96 flex items-center justify-center bg-gray-50">
-                    <p className="text-gray-500">This calculator will be available in a future update.</p>
-                  </CardContent>
-                </Card>
+
+              <TabsContent value="retirement" className="mt-0">
+                <RetirementCalculator />
+              </TabsContent>
+
+              <TabsContent value="networth" className="mt-0">
+                <NetWorthTracker />
+              </TabsContent>
+
+              <TabsContent value="quiz" className="mt-0">
+                <FinancialHealthQuiz />
+              </TabsContent>
+
+              <TabsContent value="glossary" className="mt-0">
+                <FinancialGlossary />
               </TabsContent>
             </Tabs>
 
-            {/* How to use the calculators */}
-            <div className="mt-16">
-              <h2 className="text-center">How to Use Our Financial Calculators</h2>
-              <div className="max-w-3xl mx-auto mt-8">
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="font-semibold">Budget Calculator</h3>
-                    <p className="text-gray-700">
-                      Enter your monthly income and all your expenses to see a comprehensive breakdown 
-                      of where your money goes. The calculator will show you how much you have left 
-                      for savings or other goals, and highlight areas where you might be overspending.
-                    </p>
+            {/* Tool Descriptions */}
+            <div className="mt-16 bg-muted/30 rounded-xl p-6 md:p-8 border border-border">
+              <h2 className="text-center text-2xl md:text-3xl font-bold mb-8">About Our Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: Calculator,
+                    title: 'Budget Calculator',
+                    description: 'Track income and expenses to understand where your money goes and identify savings opportunities.',
+                  },
+                  {
+                    icon: TrendingUp,
+                    title: 'Investment Calculator',
+                    description: 'Project how your investments can grow with compound interest over time with different scenarios.',
+                  },
+                  {
+                    icon: CreditCard,
+                    title: 'Debt Payoff Calculator',
+                    description: 'Compare avalanche vs snowball methods to create the best strategy to become debt-free.',
+                  },
+                  {
+                    icon: Wallet,
+                    title: 'Retirement Calculator',
+                    description: 'Plan for retirement by projecting savings growth and estimating if you\'re on track.',
+                  },
+                  {
+                    icon: Landmark,
+                    title: 'Net Worth Tracker',
+                    description: 'Track all your assets and liabilities to calculate and monitor your total net worth.',
+                  },
+                  {
+                    icon: Heart,
+                    title: 'Financial Health Quiz',
+                    description: 'Answer questions to get a score and personalized recommendations for your finances.',
+                  },
+                ].map((tool, index) => (
+                  <div key={index} className="flex gap-4">
+                    <div className="p-3 bg-finance-primary/10 rounded-lg h-fit">
+                      <tool.icon className="h-5 w-5 text-finance-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">{tool.title}</h3>
+                      <p className="text-sm text-muted-foreground">{tool.description}</p>
+                    </div>
                   </div>
-                  
-                  <div>
-                    <h3 className="font-semibold">Investment Growth Calculator (Coming Soon)</h3>
-                    <p className="text-gray-700">
-                      This calculator will help you estimate how your investments might grow over time. 
-                      You'll be able to enter your initial investment, monthly contributions, expected 
-                      rate of return, and time horizon to see potential growth scenarios.
-                    </p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-semibold">Debt Payoff Calculator (Coming Soon)</h3>
-                    <p className="text-gray-700">
-                      Enter information about your debts, including balances, interest rates, and minimum 
-                      payments. This calculator will help you create a strategic payoff plan, showing you 
-                      how different payment strategies could affect your timeline to becoming debt-free.
-                    </p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-semibold">Savings Goal Calculator (Coming Soon)</h3>
-                    <p className="text-gray-700">
-                      Whether you're saving for a home, vacation, or emergency fund, this calculator will 
-                      help you determine how much you need to save each month to reach your goal by a 
-                      specific date, accounting for expected interest earnings.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
